@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Description: This script organizes files in the current directory into subdirectories based on their file extensions.
+
+#lets list the common file times and their corresponding directories. This program will automate your system on desktop
+
+declare -A file_type=(
+	["jpeg"]="Images"
+	["jpg"]="Images"
+    	["jpeg"]="Images"
+    	["png"]="Images"
+    	["gif"]="Images"
+    	["bmp"]="Images"
+    	["mp3"]="Music"
+    	["wav"]="Music"
+    	["flac"]="Music"
+    	["mp4"]="Videos"
+    	["mkv"]="Videos"
+    	["avi"]="Videos"
+    	["mov"]="Videos"
+    	["pdf"]="Documents"
+    	["doc"]="Documents"
+    	["docx"]="Documents"
+    	["ppt"]="Documents"
+    	["pptx"]="Documents"
+    	["xls"]="Documents"
+    	["xlsx"]="Documents"
+    	["txt"]="Documents"
+    	["zip"]="Archives"
+    	["tar"]="Archives"
+    	["gz"]="Archives"
+    	["bz2"]="Archives"
+    	["7z"]="Archives"
+)
+
+#Create directories if they donot exist
+
+for dir in "${file_type[@]}"; do
+	mkdir -p "$dir"
+done
+
+#Move files to their respective directories 
+
+for files in *.*; do
+      extentions="${file##*.}"
+      extentions="${extentions,,}" #converting extentions to lowercase
+	if [[ -n "${file_types[$extentions]}"]]; then
+	mv "$file" "${file_type[$extention]}/"
+ 	echo "Moved $file to "${file_type[$extention]}/"
+	else
+	echo "No category defined for the file: $file"
+fi
+done
+echo"file org done:"
