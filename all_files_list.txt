@@ -28,6 +28,7 @@
 28_connectivity_check.sh
 29_random_number_generator.sh
 30_checkforrootuser.sh
+31_logfile.sh
 all_files.txt
 names.txt
 text.csv

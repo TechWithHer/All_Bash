@@ -1,42 +1,44 @@
 #!/bin/bash
 
-#Lets Delete Files of Specific Extensions from a Directory. 
-#Dir name, extentions type will be entered by the user
-#Enter the number of files deleted:wq
-
-
 echo "From which directory do you want to delete? Enter the path:"
 read dir
-echo "What is the extension of the file you want to delete?"
-read extension
-let file_count=0
 
-#check if the path which is inputted is valid
+# Trim spaces from directory path
+dir=$(echo "$dir" | xargs)
 
+# Check if the provided directory exists
 if [ -d "$dir" ]; then
-	echo "Dir path is correct"
+    echo "Directory path is correct."
+    
+    echo "Enter the file extensions you want to delete (separated by spaces):"
+    read -a extensions   # Read multiple extensions as an array
 
-        #convert extention to lower case
+    count=0  # Initialize deleted file counter
 
-	extension=$(echo "$extension" | tr '[:upper:]' '[:lower:]')
-	echo "extension in lower case is $extension"
-	
-	#lets find and count the existing files  		
-	
-	files=$(find "$dir" -type f -name "*.$extension" -print0 )
-	file_count=$(find "$dir" -type f -name "*.$extension" | wc -l)
-	echo "Number of files found $file_count"
-	
+    # Loop through each extension entered
+    for ext in "${extensions[@]}"; do
+        ext=$(echo "$ext" | tr '[:upper:]' '[:lower:]')  # Convert to lowercase
+        echo "Searching for *.$ext files..."
 
-	#now lets start the process of deletion 
- 	for  file in "$files"; do
-	echo "Removing $file"
-	rm "$file" 	
-	count=$((count+1))
-done
-	echo "Number of files deleted is: $count"	
+        # Find files and store them in an array
+        files=( $(find "$dir" -type f -name "*.$ext") )
+
+        # Check if files exist before deletion
+        if [ ${#files[@]} -eq 0 ]; then
+            echo "No *.$ext files found."
+            continue
+        fi
+
+        # Loop through and delete files
+        for file in "${files[@]}"; do
+            echo "Removing: $file"
+            rm "$file"
+            count=$((count+1))
+        done
+    done
+
+    echo "Total files deleted: $count"
 
 else 
-	echo "Dir path is incorrect"
-fi 
-
+    echo "Directory path is incorrect or does not exist."
+fi
