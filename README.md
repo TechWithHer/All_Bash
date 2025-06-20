@@ -20,7 +20,7 @@ Whether you're just starting out with `echo "Hello, World!"` or writing complex 
 
 I'm also creating a **30-minute crash course video** that explains the key modules from this repo, hosted on Notion:
 
-📺 [**Watch Here → Module 1: Shell Commands – The Ultimate Guide**](https://www.notion.so/Module-1-Shell-Commands-The-Ultimate-Guide-197df188b81e80148453f1b1ed676a4a)
+📺 [**Study Content → Shell Commands – The Ultimate Guide**](https://www.notion.so/Module-1-Shell-Commands-The-Ultimate-Guide-197df188b81e80148453f1b1ed676a4a)
 
 > **Check it out** to learn how to use shell commands effectively with real demos, use-cases, and a full walkthrough of this repo.
 
